@@ -63,7 +63,7 @@ class WechatSubsribeAccount(Channel):
         if cache.get(key)['req_times'] == 3 and count >= 4:
             logger.info("微信超时3次")
             #################
-            time.sleep(1)
+            time.sleep(2)
             self.get_un_send_content("继续")
             iCount += 1
             if iCount > 5:
@@ -94,6 +94,7 @@ class WechatSubsribeAccount(Channel):
                     cache.pop(key)
                     return value.get("data")
                 else:
+                    time.sleep(2)
                     self.get_un_send_content("继续") #return "还在处理中，请稍后再试"
                     iCount += 1
                     if iCount > 5:
