@@ -62,14 +62,7 @@ class WechatSubsribeAccount(Channel):
 
         if cache.get(key)['req_times'] == 3 and count >= 4:
             logger.info("微信超时3次")
-            #################
-            time.sleep(2)
-            self.get_un_send_content("继续")
-            iCount += 1
-            if iCount > 5:
-                return "微信反馈超时，还在处理中，请稍后再试！或者输入输入\"继续\""
-            ##################
-            #return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
+            return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
 
         if count <= 5:
             time.sleep(1)
@@ -86,17 +79,11 @@ class WechatSubsribeAccount(Channel):
         cache[key]['data'] = reply_text
 
     def get_un_send_content(self, from_user_id):
-        iCount = 1
         for key in cache:
             if from_user_id in key:
                 value = cache[key]
                 if value.get('status') == "success":
                     cache.pop(key)
                     return value.get("data")
-                else:
-                    time.sleep(2)
-                    self.get_un_send_content("继续") #return "还在处理中，请稍后再试"
-                    iCount += 1
-                    if iCount > 5:
-                        return "微信反馈超时，还在处理中，请稍后再试！或者输入输入\"继续\""
+                return "还在处理中，请稍后再试"
         return "目前无等待回复信息，请输入对话"
