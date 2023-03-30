@@ -2,7 +2,7 @@
   "model": {
     "type" : "chatgpt",
     "openai": {
-      "api_key": "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",
+      "api_key": "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",
       "model": "gpt-3.5-turbo",
       "proxy": "",
       "conversation_max_tokens": 1000,
