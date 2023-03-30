@@ -9,7 +9,7 @@
  - [x] [文心一言 (测试版)](https://github.com/zhayujie/bot-on-anything#3%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80-%E6%B5%8B%E8%AF%95%E7%89%88)
  - [x] [New Bing](https://github.com/zhayujie/bot-on-anything#4newbing)
 
- 
+
 **应用：**
 
  - [x] [终端](https://github.com/zhayujie/bot-on-anything#1%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BB%88%E7%AB%AF)
@@ -124,7 +124,7 @@ pip3 install --upgrade openai
 1. 注册OpenAI账号并配置API KEY
 2. 安装openai依赖，要求版本高于 `0.25.0` 
 3. 修改`config.json`配置中的type字段为 `openai`
- 
+
 ```bash
 {
   "model": {
@@ -501,3 +501,7 @@ pip3 install PyJWT flask
 # 教程
 
 1.视频教程：https://www.bilibili.com/video/BV1KM4y167e8
+
+
+
+# 该项目是复制做来修改
