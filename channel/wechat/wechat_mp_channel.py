@@ -62,10 +62,11 @@ class WechatSubsribeAccount(Channel):
 
         if cache.get(key)['req_times'] == 3 and count >= 4:
             logger.info("微信超时3次")
-            return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
+            return self.get_un_send_content("继续")
+            #return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
 
         if count <= 5:
-            time.sleep(2)
+            time.sleep(1)
             if count == 5:
                 # 第5秒不做返回，防止消息发送出去了但是微信已经中断连接
                 return None
