@@ -85,5 +85,7 @@ class WechatSubsribeAccount(Channel):
                 if value.get('status') == "success":
                     cache.pop(key)
                     return value.get("data")
-                return "还在处理中，请稍后再试"
+                else:
+                    logger.info( value.get('status') )
+                    return "还在处理中，请稍后再试"
         return "目前无等待回复信息，请输入对话"
