@@ -60,8 +60,8 @@ class WechatSubsribeAccount(Channel):
             cache.pop(key)
             return res.get("data")
 
-        if cache.get(key)['req_times'] == 3 and count >= 4:
-            logger.info("==>微信超时3次")
+        if cache.get(key)['req_times'] == 5 and count >= 4:
+            logger.info("==>微信超时5次")
             return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
             #return self.get_un_send_content("继续")
             
