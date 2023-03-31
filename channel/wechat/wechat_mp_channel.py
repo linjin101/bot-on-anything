@@ -26,7 +26,7 @@ def hello_world(msg):
             return "输入内容有敏感词汇"
 
         else:
-            logger.info('[WX_Public] receive public msg: {}, userId: {}'.format(msg.content, msg.source))
+            logger.info('==>[WX_Public] receive public msg: {}, userId: {}'.format(msg.content, msg.source))
             key = msg.content + '|' + msg.source
             if cache.get(key):
                 # request time
@@ -36,7 +36,7 @@ def hello_world(msg):
 
 class WechatSubsribeAccount(Channel):
     def startup(self):
-        logger.info('[WX_Public] Wechat Public account service start!')
+        logger.info('==>[WX_Public] Wechat Public account service start!')
         robot.config['PORT'] = channel_conf(const.WECHAT_MP).get('port')
         robot.config['HOST'] = '0.0.0.0'
         robot.run()
@@ -54,16 +54,17 @@ class WechatSubsribeAccount(Channel):
             thread_pool.submit(self._do_send, msg.content, context)
 
         res = cache.get(key)
-        logger.info("count={}, res={}".format(count, res))
+        logger.info("==>count={}, res={}".format(count, res))
         if res.get('status') == 'success':
             res['status'] = "done"
             cache.pop(key)
             return res.get("data")
 
         if cache.get(key)['req_times'] == 3 and count >= 4:
-            logger.info("微信超时3次")
-            return self.get_un_send_content("继续")
-            #return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
+            logger.info("==>微信超时3次")
+            return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
+            #return self.get_un_send_content("继续")
+            
 
         if count <= 5:
             time.sleep(1)
@@ -75,7 +76,7 @@ class WechatSubsribeAccount(Channel):
     def _do_send(self, query, context):
         key = query + '|' + context['from_user_id']
         reply_text = super().build_reply_content(query, context)
-        logger.info('[WX_Public] reply content: {}'.format(reply_text))
+        logger.info('==>[WX_Public] reply content: {}'.format(reply_text))
         cache[key]['status'] = "success"
         cache[key]['data'] = reply_text
 
@@ -86,6 +87,8 @@ class WechatSubsribeAccount(Channel):
                 if value.get('status') == "success":
                     cache.pop(key)
                     return value.get("data")
-                return self.get_un_send_content("继续")
-                #return "还在处理中，请稍后再试"
+                else:
+                    logger.info("==>还在处理中，请稍后输入\"继续\"查看回复")
+                return "还在处理中，请稍后输入\"继续\"查看回复"
+                #return self.get_un_send_content("继续")
         return "目前无等待回复信息，请输入对话"
