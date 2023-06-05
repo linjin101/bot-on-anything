@@ -65,7 +65,7 @@ class WechatSubsribeAccount(Channel):
             return "已开始处理，请稍等片刻后输入\"继续\"查看回复"
 
         if count <= 5:
-            time.sleep(2)
+            time.sleep(5)
             if count == 5:
                 # 第5秒不做返回，防止消息发送出去了但是微信已经中断连接
                 return None
